@@ -7,7 +7,7 @@
 <link rel="stylesheet" th:href="@{/css/signup.css}">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="/js/allergy.js" defer></script>
-<script src="/js/signup.js" defer></script>
+<script src="/js/allergy.js" defer></script>
 </head>
 <body>
 	<div class="container">
@@ -27,9 +27,8 @@
 				<label for="memAllergyFood">알러지&비선호음식 체크</label>
 				<div id="selected-allergies" class="selected-allergies"></div>
 				<div class="dropdown-content">
-					<span th:each="allergy : ${allergyList}" class="allergy-item"
-						th:data-id="${allergy.allergyId}"> <span
-						th:text="${allergy.allergyName}">#알러지 이름</span>
+					<span th:each="allergy : ${allergyList}" class="allergy-item" th:data-id="${allergy.allergyId}"> 
+						<span th:text="${allergy.allergyName}">#알러지 이름</span>
 					</span>
 				</div>
 			</div><br><br>

@@ -33,8 +33,6 @@ public class MemberService {
 
 	public Optional<Member> findByMemNickname(String memNickname) {
 		Optional<Member> opMember = memberRepository.findByMemNickname(memNickname);
-//		System.out.println("memNickName ===> " + memNickname);
-//		System.out.println("member ===> " + opMember.get());
 		return opMember;
 	}
 
@@ -50,10 +48,6 @@ public class MemberService {
 	public boolean isDuplicate(String memId, String memNickname) {
 		boolean idExists = getMember(memId).isPresent();
 		boolean nicknameExists = findByMemNickname(memNickname).isPresent();
-
-		System.out.println(idExists + " - ID 존재 여부");
-		System.out.println(nicknameExists + " - 닉네임 존재 여부");
-
 		return idExists || nicknameExists;
 	}
 

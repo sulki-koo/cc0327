@@ -18,21 +18,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import cookcloud.entity.Member;
+import cookcloud.entity.MemberAllergyFood;
 import cookcloud.entity.Message;
 import cookcloud.entity.Recipe;
 import cookcloud.entity.Review;
-import cookcloud.service.AllergyService;
-import cookcloud.service.FollowsService;
-import cookcloud.service.LikesService;
-import cookcloud.service.MemberService;
-import cookcloud.service.MessageService;
-import cookcloud.service.RecipeService;
-import cookcloud.service.ReviewService;
+import cookcloud.service.*;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/mypage")
 public class MyPageController {
+
+    private final MemberAllergyFoodService memberAllergyFoodService;
 
 	@Autowired
 	private MemberService memberService;
@@ -55,10 +52,14 @@ public class MyPageController {
 	@Autowired
 	private MessageService messageService;
 
+    MyPageController(MemberAllergyFoodService memberAllergyFoodService) {
+        this.memberAllergyFoodService = memberAllergyFoodService;
+    }
+
 	@GetMapping
 	public String viewMyPage(Model model, Principal principal, HttpSession session) {
 		// 로그인된 사용자(memNickname 기반) 조회
-		Member member = memberService.findByMemNickname(principal.getName()).get();
+		Member member = memberService.getMember(principal.getName()).get();
 
 		String memId = member.getMemId();
 		session.setAttribute("memId", memId);

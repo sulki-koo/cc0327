@@ -4,12 +4,8 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -81,17 +77,6 @@ public class Member implements Serializable{
 	
 	@OneToMany(mappedBy = "member")
 	private List<Message> messageList;
-	
-	@OneToMany(mappedBy = "member")
-	private List<MemberAllergyFood> memberAllergyFoodList;
-	
-	public void setMemberAllergyFood(MemberAllergyFood memberAllergyFood) {
-		memberAllergyFoodList.add(memberAllergyFood);
-		memberAllergyFood.setMember(this);
-	}
-	
-	@OneToMany(mappedBy = "member")
-	private List<Inquiry> inquiryList;
 	
 	@OneToMany(mappedBy = "member")
 	private List<Report> reportList;

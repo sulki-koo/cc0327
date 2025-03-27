@@ -1,6 +1,5 @@
 package cookcloud.controller;
 
-import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,9 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import cookcloud.entity.Member;
-import cookcloud.entity.MemberAllergyFood;
-import cookcloud.service.AllergyService;
-import cookcloud.service.MemberAllergyFoodService;
 import cookcloud.service.MemberService;
 
 @Controller
@@ -26,16 +22,9 @@ public class SignupController {
 	@Autowired
 	private MemberService memberService;
 
-	@Autowired
-	private AllergyService allergyService;
-
-	@Autowired
-	private MemberAllergyFoodService memberAllergyFoodService;
-	
 	// 회원가입 페이지
 	@GetMapping
 	public String showSignupPage(Model model) {
-		model.addAttribute("allergyList", allergyService.getAllAllergies());
 		model.addAttribute("member", new Member());
 		return "signup"; // signup.html 페이지 반환
 	}
@@ -62,14 +51,6 @@ public class SignupController {
 		member.setMemEmail(member.getMemEmail());
 		member.setMemPhone(member.getMemPhone());
 		memberService.insertMember(member);
-
-		// 알러지 정보 저장
-		for (MemberAllergyFood allergyFood : member.getMemberAllergyFoodList()) {
-			MemberAllergyFood newMemberAllergyFood = new MemberAllergyFood();
-			newMemberAllergyFood.setMemId(member.getMemId());
-			newMemberAllergyFood.setAllergyId(allergyFood.getAllergyId());
-			memberAllergyFoodService.insertMemAllergyFood(newMemberAllergyFood);
-		}
 
 	}
 

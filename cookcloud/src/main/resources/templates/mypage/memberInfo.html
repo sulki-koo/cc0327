@@ -11,15 +11,6 @@
 			        <p>이메일 <input type="text" id="email" th:value="${member.memEmail}"></p>
 			        <p>전화번호 <input type="text" id="phone" th:value="${member.memPhone}"></p>
 			        <p>가입일 <span th:text="${#temporals.format(member.memInsertAt, 'yyyy-MM-dd')}">가입일</span></p>
-			        <div class="dropdown">
-						<label for="memAllergyFood">알러지&비선호음식 목록</label>
-			        <div id="selected-allergies" class="selected-allergies"></div>
-				            <div class="dropdown-content">
-			                 <span th:each="allergy : ${allergyList}" class="allergy-item" th:data-id="${allergy.allergyId}">
-			                       <span th:text="${allergy.allergyName}">#알러지명</span>
-			                 </span>
-			             </div>            
-			        </div>
 				</form><br><br>
 			    <a href="#" id="updateMember" th:if="${#authorization.expr('isAuthenticated()')}">수정</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				<a href="#" id="deleteMember" th:if="${#authorization.expr('isAuthenticated()')}">회원탈퇴</a>

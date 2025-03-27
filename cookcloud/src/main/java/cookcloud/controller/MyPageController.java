@@ -19,10 +19,8 @@ import cookcloud.entity.Member;
 import cookcloud.entity.Message;
 import cookcloud.entity.Recipe;
 import cookcloud.entity.Review;
-import cookcloud.service.AllergyService;
 import cookcloud.service.FollowsService;
 import cookcloud.service.LikesService;
-import cookcloud.service.MemberAllergyFoodService;
 import cookcloud.service.MemberService;
 import cookcloud.service.MessageService;
 import cookcloud.service.RecipeService;
@@ -35,9 +33,6 @@ public class MyPageController {
 
 	@Autowired
 	private MemberService memberService;
-
-	@Autowired
-	private AllergyService allergyService;
 
 	@Autowired
 	private RecipeService recipeService;
@@ -78,7 +73,6 @@ public class MyPageController {
 		model.addAttribute("likedRecipes", likedRecipes);
 		model.addAttribute("myReviews", myReviews);
 		model.addAttribute("messages", messages);
-		model.addAttribute("allergyList", allergyService.getAllAllergies());
 
 		return "mypage/main"; // Thymeleaf 템플릿 이름
 	}

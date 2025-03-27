@@ -23,15 +23,6 @@
 			<span id="nameError" class="error-message"></span><br>
 			닉네임<input type="text" id="nickname" class="input-field" name="memNickname" required><br>
 			<span id="nicknameError" class="error-message"></span><br>
-			<div class="dropdown">
-				<label for="memAllergyFood">알러지&비선호음식 체크</label>
-				<div id="selected-allergies" class="selected-allergies"></div>
-				<div class="dropdown-content">
-					<span th:each="allergy : ${allergyList}" class="allergy-item" th:data-id="${allergy.allergyId}"> 
-						<span th:text="${allergy.allergyName}">#알러지 이름</span>
-					</span>
-				</div>
-			</div><br><br>
 			 이메일<input type="email" id="email" class="input-field" name="memEmail" required><br>
 			 <span id="emailError" class="error-message"></span><br>
 			 전화번호<input type="text" id="phone" class="input-field" name="memPhone" required><br>

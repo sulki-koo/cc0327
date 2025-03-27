@@ -63,9 +63,7 @@ $(document).ready(function() {
 		// 검색어에 맞는 레시피를 필터링하는 로직
 		searchRecipes(searchTerm);
 	});
-});
 
-$(document).ready(function() {
 	// 해시태그 입력을 쉼표로 구분된 배열로 변환
 	const hashtags = $("#hashtags").val();
 	const hashtagArray = hashtags ? hashtags.split(',').map(item => item.trim()) : [];
@@ -81,59 +79,32 @@ $(document).ready(function() {
 		}
 		reader.readAsDataURL(this.files[0]);
 	});
+
+	let offset = 0;
+	const limit = 10;
+	let loading = false;
+
+	if (loading) return;
+	loading = true;
+
+	fetch(`/api/recipes?offset=${offset}&limit=${limit}`)
+		.then(response => response.json())
+		.then(data => {
+			if (data.length > 0) {
+				renderData(type, data);
+				offset += limit;
+			}
+			loading = false;
+		})
+		.catch(error => {
+			loading = false;
+		});
+
 });
 
-let offset = 0;  // 현재 페이지 오프셋
-const limit = 10;  // 한 번에 로드할 레시피 개수
-let loading = false;  // 로딩 중인지 확인
-
-function loadMoreRecipes() {
-    if (loading) return; // 로딩 중이면 중복 요청 방지
-    loading = true;
-    document.getElementById("loading").style.display = "block";  // 로딩 인디케이터 표시
-
-    // 서버에서 데이터를 가져오기
-    fetch(`/recipes?offset=${offset}&limit=${limit}`)
-        .then(response => response.json())
-        .then(data => {
-            if (data.length > 0) {
-                renderRecipes(data);  // 새로운 레시피 렌더링
-                offset += limit;  // 오프셋 갱신
-            } else {
-                window.removeEventListener("scroll", loadMoreRecipes);  // 데이터가 없으면 스크롤 이벤트 제거
-            }
-            loading = false;
-            document.getElementById("loading").style.display = "none";  // 로딩 인디케이터 숨기기
-        })
-        .catch(error => {
-            console.error("Error loading recipes:", error);
-            loading = false;
-            document.getElementById("loading").style.display = "none";  // 로딩 인디케이터 숨기기
-        });
-}
-
-function renderRecipes(recipes) {
-    const container = document.getElementById("recipes");  // 레시피를 추가할 DOM 요소
-    recipes.forEach(recipe => {
-        const div = document.createElement("div");
-        div.classList.add("recipe-item");  // 스타일을 위한 클래스
-        div.innerHTML = `
-            <h3><a href="/recipes/${recipe.recipeId}">${recipe.recipeTitle}</a></h3>
-            <p>${recipe.recipeContent}</p>
-            <span>작성자: ${recipe.memId}</span>
-        `;
-        container.appendChild(div);  // 새로운 레시피 요소를 추가
-    });
-}
-
-// 스크롤 이벤트 핸들러: 페이지 아래로 스크롤할 때 새로운 레시피를 로드
+// 무한 스크롤 이벤트
 window.addEventListener("scroll", () => {
-    if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 100) {
-        loadMoreRecipes();  // 스크롤 끝에 도달하면 레시피 더 로드
-    }
+	if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 100) {
+	}
 });
-
-// 페이지 로드시 첫 번째 데이터 로드
-loadMoreRecipes();
-
 

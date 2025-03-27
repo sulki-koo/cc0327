@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="recipe/header :: header"></head>
-<title>레시피</title>
 <body>
 	<nav th:replace="include/nav :: nav"></nav>
     <div class="container mt-4">
@@ -23,10 +22,15 @@
         </div>
 
         <div class="container mt-4" id="recipe-list">
-	    <h2>레시피 목록</h2>
-		    <div id="recipes">
-		       
-		    </div>
+		    <div class="recipe-card" th:each="recipe : ${recipes}">
+					<a th:href="@{'/recipe/' + ${recipe.recipeId}}"> <img th:src="@{${recipe.imageUrl}}" alt="레시피 이미지">
+						<h4>
+		                    <a th:href="@{'/recipes/recipe/' + ${recipe.recipeId}}" th:text="${recipe.recipeTitle}">레시피 제목</a>
+		                </h4>
+		                <p th:text="${#temporals.format(recipe.recipeInsertAt, 'yyyy-MM-dd HH:mm')}">작성일</p>
+		                <p>조회수: <span th:text="${recipe.recipeViewCount}">조회수</span></p>
+					</a>
+				</div>
 		    <div id="loading" class="text-center" style="display: none;">
 		        <span>로딩 중...</span>
 		    </div>

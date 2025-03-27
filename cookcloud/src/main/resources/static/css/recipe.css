@@ -13,3 +13,24 @@
 	font-weight: bold;
 	cursor: pointer;
 }
+
+/* 레시피, 리뷰, 유저 리스트 스타일 */
+.recipe-grid, .review-list, .user-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.recipe-card, .review-item {
+    background: white;
+    border-radius: 10px;
+    padding: 10px;
+    text-align: center;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.recipe-card img {
+    width: 100%;
+    border-radius: 10px;
+}

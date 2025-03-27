@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="recipe/header :: header"></head>
-<title>레시피 상세보기</title>
 <body>
     <nav th:replace="include/nav :: nav"></nav>
     <div class="container mt-4">
@@ -33,6 +32,7 @@
             <textarea name="content" required></textarea>
             <button type="submit">리뷰 작성</button>
         </form>
+        <button type="button" th:onclick="location.href='/recipes'" class="btn btn-primary">목록</button>
     </div>
 </body>
 </html>

@@ -6,7 +6,6 @@
 				<div class="recipe-card" th:each="recipe : ${myRecipes}">
 					<a th:href="@{'/recipe/' + ${recipe.recipeId}}"> <img th:src="@{${recipe.imageUrl}}" alt="레시피 이미지">
 						<h4>
-		                    <!-- 레시피 제목 클릭 시 해당 레시피 상세 페이지로 이동 -->
 		                    <a th:href="@{'/recipe/' + ${recipe.recipeId}}" th:text="${recipe.recipeTitle}">레시피 제목</a>
 		                </h4>
 		                <p th:text="${#temporals.format(recipe.recipeInsertAt, 'yyyy-MM-dd HH:mm')}">작성일</p>

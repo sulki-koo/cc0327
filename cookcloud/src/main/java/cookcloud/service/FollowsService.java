@@ -29,4 +29,9 @@ public class FollowsService {
                 .stream().map(Follows::getFollower).collect(Collectors.toList());
     }
 
+	public boolean toggleFollow(Long recipeId, String username) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

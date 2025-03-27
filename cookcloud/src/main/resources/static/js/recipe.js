@@ -91,7 +91,6 @@ $(document).ready(function() {
 		.then(response => response.json())
 		.then(data => {
 			if (data.length > 0) {
-				renderData(type, data);
 				offset += limit;
 			}
 			loading = false;

@@ -8,7 +8,7 @@
 						<p>
 				            나를 팔로우한 사람 수: <span th:text="${follows.followerCount}">팔로워 수</span>
 				            <!-- 팔로워 목록을 클릭하면 팔로워된 사용자의 목록을 보고, 각 사용자 페이지로 이동 -->
-				            <a th:href="@{/mypage/follower/{memId}(memId=${user.memNickname})}">팔로워 목록</a>
+				            <a th:href="@{/follower/(memId=${user.memNickname})}">팔로워 목록</a>
 				        </p>
 					</a>
 				</div>

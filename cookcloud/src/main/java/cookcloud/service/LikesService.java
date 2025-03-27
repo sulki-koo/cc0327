@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import cookcloud.entity.Likes;
 import cookcloud.entity.Recipe;
+import cookcloud.entity.Review;
 import cookcloud.repository.LikesRepository;
 import cookcloud.service.LikesService;
 
@@ -22,5 +23,12 @@ public class LikesService {
         return likesRepository.findByMemberMemId(memId)
                 .stream().map(Likes::getRecipe).collect(Collectors.toList());
     }
+
+	public boolean toggleLike(Long recipeId, String username) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+
 
 }

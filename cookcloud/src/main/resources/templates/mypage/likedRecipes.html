@@ -4,10 +4,10 @@
 			<h3>좋아요 레시피</h3>
 			<div class="recipe-grid">
 				<div class="recipe-card" th:each="recipe : ${likedRecipes}">
-					<a th:href="@{'/recipe/' + ${recipe.recipeId}}"> 
+					<a th:href="@{'/recipes/recipe/' + ${recipe.recipeId}}"> 
 						<img th:src="@{${recipe.imageUrl}}" alt="레시피 이미지">
 						<h4>
-		                    <a th:href="@{'/recipe/' + ${like.recipeId}}" th:text="${like.recipeTitle}">레시피 제목</a>
+		                    <a th:href="@{'/recipes/recipe/' + ${like.recipeId}}" th:text="${like.recipeTitle}">레시피 제목</a>
 		                </h4>
 						<p>좋아요 한 시간: <span th:text="${#temporals.format(like.likeAt, 'yyyy-MM-dd HH:mm')}">좋아요 시간</span></p>
 					</a>

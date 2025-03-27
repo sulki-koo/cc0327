@@ -4,35 +4,51 @@
 <body>
     <nav th:replace="include/nav :: nav"></nav>
     <div class="container mt-4">
-        <h2 th:text="${recipe.recipeTitle}">레시피 제목</h2>
+        <div class="d-flex justify-content-between">
+            <h2 th:text="${recipe.recipeTitle}">레시피 제목</h2>
+	        <button class="btn btn-danger" th:onclick="|location.href='/recipes/report/' + ${recipe.recipeId}|">
+            	<i class="bi bi-flag"></i> 신고
+            </button>
+        </div>
+        
+		<p>
+			작성자: <span th:text="${nickname}">작성자</span>&nbsp;&nbsp;
+            조회수: <span th:text="${recipe.recipeViewCount}">0</span>&nbsp;&nbsp;
+            작성일: <span th:text="${#temporals.format(recipe.recipeInsertAt, 'YY.MM.dd HH:mm')}">작성일</span>
+        </p>
+        <div class="d-flex justify-content-between">
         <p th:text="${recipe.recipeContent}">레시피 내용</p>
-        <p>작성자: <span th:text="${recipe.memId}">작성자</span></p>
-        <p>조회수: <span th:text="${recipe.recipeViewCount}">0</span></p>
-        <p>작성일: <span th:text="${recipe.recipeInsertAt}">작성일</span></p>
+        </div>
+		<br><br>
+        <div class="d-flex justify-content-between align-items-center">
+            <button id="likeBtn" class="btn" th:classappend="${liked} ? 'btn-danger' : 'btn-outline-danger'" th:data-recipe-id="${recipe.recipeId}">
+                <i id="likeIcon" class="bi bi-heart"></i> 좋아요
+            </button>
+            <button id="followBtn" class="btn" th:classappend="${following} ? 'btn-warning' : 'btn-outline-secondary'" th:data-user-id="${recipe.memId}">
+                <i id="followIcon" class="bi bi-bell"></i> 팔로우
+            </button>
+        </div><br>
 
-        <div>
-            <button th:onclick="location.href='/recipes/like/{recipeId}'" class="btn btn-primary">좋아요</button>
-            <button th:onclick="location.href='/recipes/subscribe/{recipeId}'" class="btn btn-secondary">구독</button>
-            <button th:onclick="location.href='/recipes/report/{recipeId}'" class="btn btn-danger">신고</button>
+        <!-- 리뷰 작성 (로그인한 사용자만 가능) -->
+        <div th:if="${#authorization.expr('isAuthenticated()')}">
+            <h6>리뷰 작성</h6>
+            <form id="reviewForm" action="/reviews/create" method="post">
+                <input type="hidden" name="recipeId" th:value="${recipe.recipeId}">
+                <textarea name="content" class="form-control" required></textarea>
+                <button type="submit" class="btn btn-primary mt-2">작성</button>
+            </form>
         </div>
 
-        <h3>리뷰</h3>
-        <div id="reviews">
-            <div th:each="review : ${recipe.reviewList}">
-                <div>
-                    <p th:text="${review.content}"></p>
-                    <button th:onclick="location.href='/reviews/like/{review.id}'">좋아요</button>
-                    <button th:onclick="location.href='/reviews/report/{review.id}'">신고</button>
-                </div>
-            </div>
-        </div>
-
-        <form action="/reviews/create" method="post">
-            <input type="hidden" name="recipeId" th:value="${recipe.recipeId}">
-            <textarea name="content" required></textarea>
-            <button type="submit">리뷰 작성</button>
-        </form>
-        <button type="button" th:onclick="location.href='/recipes'" class="btn btn-primary">목록</button>
+        <!-- 리뷰 목록 (무한 스크롤) -->
+        <h6 class="mt-4">리뷰</h6>
+        <div id="reviews"></div>
+        <div id="loading" class="text-center mt-2" style="display: none;">로딩 중...</div>
+		<div class="review-item" th:each="review : ${myReviews}">
+			<a th:href="@{'/recipes/recipe/' + ${review.recipe.recipeId}}">
+				<h6 th:text="${review.reviewContent}">리뷰 내용</h6>
+		            <p th:text="${#temporals.format(review.reviewInsertAt, 'yyyy-MM-dd HH:mm')}">작성일</p>
+				</a>
+		</div>        
     </div>
 </body>
 </html>

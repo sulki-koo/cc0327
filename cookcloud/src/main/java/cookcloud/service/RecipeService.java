@@ -124,4 +124,5 @@ public class RecipeService {
 		return recipeTags.stream().map(recipeTag -> hashtagRepository.findById(recipeTag.getHashId()).orElse(null))
 				.filter(hashtag -> hashtag != null).map(Hashtag::getHashName).collect(Collectors.joining(", "));
 	}
+
 }

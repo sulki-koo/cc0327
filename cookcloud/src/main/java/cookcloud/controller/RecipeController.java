@@ -54,7 +54,9 @@ public class RecipeController {
 	@GetMapping("/recipe/{recipeId}")
 	public String getRecipe(@PathVariable Long recipeId, Model model) {
 		Recipe recipe = recipeService.getRecipe(recipeId).get();
+		Member member = memberService.getMember(recipe.getMemId()).get();
 		model.addAttribute("recipe", recipe);
+		model.addAttribute("nickname", member.getMemNickname());
 		return "recipe/view";
 	}
 

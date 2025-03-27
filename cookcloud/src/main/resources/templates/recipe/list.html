@@ -23,7 +23,7 @@
 
         <div class="container mt-4" id="recipe-list">
 		    <div class="recipe-card" th:each="recipe : ${recipes}">
-					<a th:href="@{'/recipe/' + ${recipe.recipeId}}"> <img th:src="@{${recipe.imageUrl}}" alt="레시피 이미지">
+					<a th:href="@{'/recipes/recipe/' + ${recipe.recipeId}}"> <img th:src="@{${recipe.imageUrl}}" alt="레시피 이미지">
 						<h4>
 		                    <a th:href="@{'/recipes/recipe/' + ${recipe.recipeId}}" th:text="${recipe.recipeTitle}">레시피 제목</a>
 		                </h4>

@@ -1,0 +1,26 @@
+/* 네비게이션 */
+nav {
+    width: 100%;
+    background: linear-gradient(86deg, #f0e333, #6ce63c, #27dcb2, #23adcc, #5118bc);
+    padding: 10px 0;
+    text-align: center;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    margin: 0 15px;
+    font-size: 16px;
+}
+
+@media (max-width: 480px) {
+    nav {
+        padding: 8px 0;
+    }
+
+    nav a {
+        font-size: 14px;
+        margin: 0 10px;
+    }
+}

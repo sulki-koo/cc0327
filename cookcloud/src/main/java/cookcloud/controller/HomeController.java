@@ -4,7 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class MainController {
+public class HomeController {
 
     // 메인 페이지
     @GetMapping("/")
@@ -36,9 +36,5 @@ public class MainController {
     public String noticePage() {
         return "notice"; // notice.html
     }
-    // 레시피 게시판 페이지
-    @GetMapping("/recipes")
-    public String recipeBoard() {
-        return "recipes"; // recipes.html 페이지로 이동
-    }
+    
 }

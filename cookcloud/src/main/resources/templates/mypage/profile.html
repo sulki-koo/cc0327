@@ -2,7 +2,6 @@
 <html xmlns:th="http://www.thymeleaf.org">
 	<div th:fragment="profile" class="profile-header">
 		<h2 th:text="${member.memNickname}"></h2>
-		<input type="hidden" id="memId" th:value="${session.memId}">
 		<div class="profile-stats">
 			<div>
 				<span th:text="${#lists.size(myRecipes)}"></span>

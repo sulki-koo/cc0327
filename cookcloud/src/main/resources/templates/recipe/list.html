@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="recipe/header :: header"></head>
+<title>레시피</title>
+<body>
+	<nav th:replace="include/nav :: nav"></nav>
+    <div class="container mt-4">
+        <div class="row mb-3">
+            <div class="col-md-8">
+                <select id="recipeTypeSelect" class="form-select">
+                    <option value="">All Types</option>
+                    <th:block th:each="entry : ${recipeTypes}">
+                        <option th:value="${entry.key}" th:text="${entry.value.codeName}"></option>
+                    </th:block>
+                </select>
+                <input type="text" id="hashtagSearch" class="form-control" placeholder="Search by Hashtag">
+                <button id="searchHashtagBtn" class="btn btn-secondary">Search</button>
+                <input type="text" id="searchInput" class="form-control" placeholder="검색 (제목, 닉네임, 해시태그, 유형)">
+            </div>
+            <div class="col-md-4 text-end">
+                <button th:onclick="location.href='/recipes/create'" id="addRecipeBtn" class="btn btn-primary">레시피 등록</button>
+            </div>
+        </div>
+
+        <div class="container mt-4" id="recipe-list">
+	    <h2>레시피 목록</h2>
+		    <div id="recipes">
+		       
+		    </div>
+		    <div id="loading" class="text-center" style="display: none;">
+		        <span>로딩 중...</span>
+		    </div>
+		</div>
+    </div>
+</body>
+</html>

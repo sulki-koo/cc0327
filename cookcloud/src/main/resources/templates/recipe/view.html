@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="recipe/header :: header"></head>
+<title>레시피 상세보기</title>
+<body>
+    <nav th:replace="include/nav :: nav"></nav>
+    <div class="container mt-4">
+        <h2 th:text="${recipe.recipeTitle}">레시피 제목</h2>
+        <p th:text="${recipe.recipeContent}">레시피 내용</p>
+        <p>작성자: <span th:text="${recipe.memId}">작성자</span></p>
+        <p>조회수: <span th:text="${recipe.recipeViewCount}">0</span></p>
+        <p>작성일: <span th:text="${recipe.recipeInsertAt}">작성일</span></p>
+
+        <div>
+            <button th:onclick="location.href='/recipes/like/{recipeId}'" class="btn btn-primary">좋아요</button>
+            <button th:onclick="location.href='/recipes/subscribe/{recipeId}'" class="btn btn-secondary">구독</button>
+            <button th:onclick="location.href='/recipes/report/{recipeId}'" class="btn btn-danger">신고</button>
+        </div>
+
+        <h3>리뷰</h3>
+        <div id="reviews">
+            <div th:each="review : ${recipe.reviewList}">
+                <div>
+                    <p th:text="${review.content}"></p>
+                    <button th:onclick="location.href='/reviews/like/{review.id}'">좋아요</button>
+                    <button th:onclick="location.href='/reviews/report/{review.id}'">신고</button>
+                </div>
+            </div>
+        </div>
+
+        <form action="/reviews/create" method="post">
+            <input type="hidden" name="recipeId" th:value="${recipe.recipeId}">
+            <textarea name="content" required></textarea>
+            <button type="submit">리뷰 작성</button>
+        </form>
+    </div>
+</body>
+</html>

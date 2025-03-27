@@ -2,10 +2,10 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <nav th:fragment="nav">
 	    <a href="/">홈</a>
-	    <a href="/mypage">마이페이지</a>
 	    <!-- 인증된 사용자만 로그아웃 링크 표시 -->
 	    <a href="#" id="logoutLink" th:if="${#authorization.expr('isAuthenticated()')}">로그아웃</a>
 	    <!-- 인증되지 않은 사용자만 로그인 링크 표시 -->
 	    <a href="/login" th:if="${#authorization.expr('!isAuthenticated()')}">로그인</a>
 	</nav>
+	<input type="hidden" id="memId" th:value="${session.memId}">
 </html>

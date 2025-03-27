@@ -14,22 +14,26 @@ import cookcloud.entity.CodeId;
 import cookcloud.service.CodeService;
 
 @RestController
-@RequestMapping("/cookcloud")
+@RequestMapping("/code")
 public class CodeController {
-	
+
 	@Autowired
 	private CodeService codeService;
-	
+
 	@GetMapping
 	public ResponseEntity<Map<CodeId, Code>> getAllCode() {
 		Map<CodeId, Code> codeData = codeService.getAllCode();
-		
+
 		if (codeData != null && !codeData.isEmpty()) {
 			return ResponseEntity.ok(codeData);
 		} else {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
 		}
 	}
-	
+
+	@GetMapping("/recipe-types")
+	public Map<CodeId, Code> getRecipeTypes() {
+		return codeService.getRecipeTypes();
+	}
 
 }

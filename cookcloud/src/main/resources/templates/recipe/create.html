@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="recipe/header :: header"></head>
+    <title>레시피 작성</title>
+<body>
+	<nav th:replace="include/nav :: nav"></nav>
+    <div class="container mt-4">
+        <h2>레시피 작성</h2>
+        <form action="/recipes/create" method="post" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label for="recipeTitle" class="form-label">제목</label>
+                <input type="text" class="form-control" id="recipeTitle" name="recipeTitle" required>
+            </div>
+            <div class="mb-3">
+                <label for="recipeContent" class="form-label">내용</label>
+                <textarea class="form-control" id="recipeContent" name="recipeContent" rows="4" required></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="recipeType" class="form-label">레시피 유형</label>
+                <select class="form-select" id="recipeType" name="recipeType">
+                    <option value="">유형 선택</option>
+                    <th:block th:each="entry : ${recipeTypes}">
+                        <option th:value="${entry.key}" th:text="${entry.value.codeName}"></option>
+                    </th:block>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="hashtags" class="form-label">해시태그</label>
+                <input type="text" class="form-control" id="hashtags" name="hashtags" placeholder="해시태그를 입력하세요 (쉼표로 구분)">
+            </div>
+            <div class="mb-3">
+                <label for="image" class="form-label">이미지</label>
+                <input type="file" class="form-control" id="image" name="image">
+            </div>
+            <button type="submit" class="btn btn-primary">등록</button>
+            <button type="button" th:onclick="location.href='/recipes'" class="btn btn-primary">취소</button>
+        </form>
+    </div>
+</body>
+</html>
